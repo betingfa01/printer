@@ -65,12 +65,12 @@ import { renderPdfForPrint, PRINT_TARGET_WIDTH_PX, PRINT_TARGET_HEIGHT_PX } from
  *    `finally` block regardless of success, failure, or cancellation.
  */
 
-// 85.60mm x 53.98mm is the ISO/IEC 7810 ID-1 card size — the single source
-// of truth for physical output dimensions, used for both @page sizing and
-// the printed <img> dimensions so the two can never drift apart. Unchanged
-// from before; print quality changes never touch physical output size.
-const CARD_WIDTH_MM = 85.60;
-const CARD_HEIGHT_MM = 53.98;
+// 84.60mm x 52.98mm — ISO/IEC 7810 ID-1 card size (85.60mm x 53.98mm) reduced
+// by 1mm on each dimension for print tolerance. Single source of truth for
+// physical output dimensions, used for both @page sizing and the printed
+// <img> dimensions so the two can never drift apart.
+const CARD_WIDTH_MM = 84.60;
+const CARD_HEIGHT_MM = 52.98;
 
 const IMAGE_LOAD_TIMEOUT_MS = 2500;
 const AFTERPRINT_SAFETY_TIMEOUT_MS = 5000;

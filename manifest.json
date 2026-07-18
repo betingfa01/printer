@@ -1,7 +1,7 @@
 {
   "short_name": "CardPrintPro",
   "name": "CardPrint Pro - ID Sizing Engine",
-  "description": "Offline app that converts uploaded PDF, JPG, and PNG files into printable ISO/IEC 7810 ID-1 cards (85.60mm x 53.98mm).",
+  "description": "Offline app that converts uploaded PDF, JPG, and PNG files into printable ID cards (84.60mm x 52.98mm, ISO/IEC 7810 ID-1 reduced 1mm per side for print tolerance).",
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",

@@ -10,8 +10,8 @@
     --border-color: #333333;
     --border-color-active: #B7F34A;
     --danger: #ff4d4d;
-    --card-width: 342px; /* 85.6mm proportional reference */
-    --card-height: 216px; /* 53.98mm proportional reference */
+    --card-width: 338px; /* 84.6mm proportional reference */
+    --card-height: 212px; /* 52.98mm proportional reference */
     --safe-top: env(safe-area-inset-top, 0px);
     --safe-bottom: env(safe-area-inset-bottom, 0px);
     --safe-left: env(safe-area-inset-left, 0px);

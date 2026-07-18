@@ -111,14 +111,15 @@ export async function processPdfFile(file, canvas, targetWidth, targetHeight) {
 // resolution render straight from the original PDF.
 // ---------------------------------------------------------------------------
 
-// True 600 DPI target for the ID-1 card: 85.60mm/53.98mm converted at 600 DPI.
-// Exported so printEngine.js uses the exact same numbers for both the PDF
-// and image print paths (single source of truth).
-export const PRINT_TARGET_WIDTH_PX = 2022;
-export const PRINT_TARGET_HEIGHT_PX = 1275;
+// True 600 DPI target for the ID-1 card: 84.60mm/52.98mm (85.60/53.98 reduced
+// 1mm per dimension) converted at 600 DPI. Exported so printEngine.js uses
+// the exact same numbers for both the PDF and image print paths (single
+// source of truth).
+export const PRINT_TARGET_WIDTH_PX = 1998;
+export const PRINT_TARGET_HEIGHT_PX = 1252;
 
-const PRINT_CARD_RATIO_W = 85.60;
-const PRINT_CARD_RATIO_H = 53.98;
+const PRINT_CARD_RATIO_W = 84.60;
+const PRINT_CARD_RATIO_H = 52.98;
 
 // A one-time, user-initiated print action can afford a much larger safety
 // ceiling than the always-possible preview render above — this is only ever

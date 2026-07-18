@@ -4,10 +4,10 @@ import { processPdfFile } from './pdfEngine.js';
 import { executePrintWorkflow } from './printEngine.js';
 
 // Global execution metrics constraints mapping to high performance 300 DPI limits.
-// 85.60mm / 25.4mm per inch * 300 DPI = 1011.0236... -> 1011 pixels width
-// 53.98mm / 25.4mm per inch * 300 DPI = 637.5591... -> 638 pixels height
-const TARGET_DPI_WIDTH = 1011;
-const TARGET_DPI_HEIGHT = 638;
+// 84.60mm / 25.4mm per inch * 300 DPI = 999.2126... -> 999 pixels width
+// 52.98mm / 25.4mm per inch * 300 DPI = 625.7480... -> 626 pixels height
+const TARGET_DPI_WIDTH = 999;
+const TARGET_DPI_HEIGHT = 626;
 
 const ACCEPTED_MIME_TYPES = new Set(['application/pdf', 'image/jpeg', 'image/jpg', 'image/png']);
 const ACCEPTED_EXTENSIONS = /\.(pdf|jpe?g|png)$/i;
