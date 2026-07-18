@@ -6,7 +6,7 @@
  */
 export function calculateSmartFit(sourceWidth, sourceHeight, targetWidth, targetHeight) {
     if (!sourceWidth || !sourceHeight || !targetWidth || !targetHeight) {
-        throw new Error('calculateSmartFit received invalid (zero or undefined) dimensions.');
+        throw new Error('Geçersiz (sıfır veya tanımsız) boyutlar nedeniyle hesaplama yapılamadı.');
     }
 
     const sourceRatio = sourceWidth / sourceHeight;

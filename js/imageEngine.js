@@ -12,7 +12,7 @@ import { calculateSmartFit } from './smartCardFit.js';
 export function processImageFile(file, canvas, targetWidth, targetHeight) {
     return new Promise((resolve, reject) => {
         if (!file || !file.type || !file.type.startsWith('image/')) {
-            reject(new Error('File is not a recognized image type.'));
+            reject(new Error('Dosya tanınan bir görsel türü değil.'));
             return;
         }
 
@@ -20,7 +20,7 @@ export function processImageFile(file, canvas, targetWidth, targetHeight) {
         try {
             objectUrl = URL.createObjectURL(file);
         } catch (err) {
-            reject(new Error('Unable to create a local preview URL for this image.'));
+            reject(new Error('Bu görsel için yerel bir önizleme URL\'si oluşturulamadı.'));
             return;
         }
 
@@ -36,7 +36,7 @@ export function processImageFile(file, canvas, targetWidth, targetHeight) {
         img.onload = function () {
             try {
                 if (!img.naturalWidth || !img.naturalHeight) {
-                    throw new Error('Image decoded to zero dimensions.');
+                    throw new Error('Görsel sıfır boyutlu olarak çözümlendi.');
                 }
 
                 canvas.width = targetWidth;
@@ -62,7 +62,7 @@ export function processImageFile(file, canvas, targetWidth, targetHeight) {
                 resolve();
             } catch (err) {
                 cleanup();
-                reject(err instanceof Error ? err : new Error('Failed to draw image onto canvas.'));
+                reject(err instanceof Error ? err : new Error('Görsel tuvale çizilemedi.'));
             }
         };
 
@@ -71,9 +71,9 @@ export function processImageFile(file, canvas, targetWidth, targetHeight) {
             // Safari/iOS report HEIC/HEIF images as image/jpeg or image/* in some
             // pickers but fail to decode via <img>; give the user an actionable hint.
             if (/heic|heif/i.test(file.type) || /\.hei[cf]$/i.test(file.name || '')) {
-                reject(new Error('HEIC/HEIF photos are not supported by the browser decoder. Please use JPG or PNG.'));
+                reject(new Error('HEIC/HEIF fotoğrafları tarayıcı tarafından desteklenmiyor. Lütfen JPG veya PNG kullanın.'));
             } else {
-                reject(new Error('Failed to decode image file. The file may be corrupted or in an unsupported format.'));
+                reject(new Error('Görsel dosyası çözümlenemedi. Dosya bozuk olabilir veya desteklenmeyen bir formatta olabilir.'));
             }
         };
 

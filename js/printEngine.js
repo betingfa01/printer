@@ -85,7 +85,7 @@ const IMAGE_PRINT_MAX_AREA = 24_000_000;
 function canvasToBlob(canvas) {
     return new Promise((resolve, reject) => {
         if (!canvas || !canvas.width || !canvas.height) {
-            reject(new Error('Card canvas is empty and cannot be printed.'));
+            reject(new Error('Kart tuvali boş, yazdırılamaz.'));
             return;
         }
         if (typeof canvas.toBlob !== 'function') {
@@ -105,7 +105,7 @@ function canvasToBlob(canvas) {
             if (blob) {
                 resolve(blob);
             } else {
-                reject(new Error('Failed to encode card canvas for printing.'));
+                reject(new Error('Kart tuvali yazdırma için kodlanamadı.'));
             }
         }, 'image/png');
     });
@@ -132,7 +132,7 @@ function loadImageElement(file) {
         try {
             objectUrl = URL.createObjectURL(file);
         } catch (err) {
-            reject(new Error('Unable to read this image file for printing.'));
+            reject(new Error('Bu görsel dosyası yazdırma için okunamadı.'));
             return;
         }
         const img = new Image();
@@ -142,7 +142,7 @@ function loadImageElement(file) {
         };
         img.onerror = () => {
             URL.revokeObjectURL(objectUrl);
-            reject(new Error('Failed to decode image file for printing.'));
+            reject(new Error('Görsel dosyası yazdırma için çözümlenemedi.'));
         };
         img.decoding = 'async';
         img.src = objectUrl;
@@ -160,7 +160,7 @@ function loadImageElement(file) {
 async function renderImageForPrint(file) {
     const img = await loadImageElement(file);
     if (!img.naturalWidth || !img.naturalHeight) {
-        throw new Error('Image has no visible content to print.');
+        throw new Error('Görselde yazdırılacak görünür içerik yok.');
     }
 
     // Same centered-crop math used everywhere else in the app, applied here
@@ -261,7 +261,7 @@ function primeIframe(iframeElement) {
     return new Promise((resolve, reject) => {
         const win = iframeElement.contentWindow;
         if (!win) {
-            reject(new Error('Print frame is not available.'));
+            reject(new Error('Yazdırma çerçevesi kullanılamıyor.'));
             return;
         }
 
@@ -317,10 +317,10 @@ function makeIframePrintable(iframeElement) {
 
 export async function executePrintWorkflow(canvas1, canvas2, hasCard1, hasCard2, paperSize, iframeElement, sourceFile1 = null, sourceFile2 = null) {
     if (!hasCard1 && !hasCard2) {
-        throw new Error('No cards to print.');
+        throw new Error('Yazdırılacak kart yok.');
     }
     if (!iframeElement) {
-        throw new Error('Print frame is missing from the page.');
+        throw new Error('Yazdırma çerçevesi sayfada bulunamadı.');
     }
 
     const objectUrls = [];
@@ -350,10 +350,10 @@ export async function executePrintWorkflow(canvas1, canvas2, hasCard1, hasCard2,
 
         let layoutHtml = '<div class="print-container">';
         if (src1) {
-            layoutHtml += `<img class="print-card" data-role="card" src="${src1}" style="${cardImgStyle}" alt="Card 1" />`;
+            layoutHtml += `<img class="print-card" data-role="card" src="${src1}" style="${cardImgStyle}" alt="Kart 1" />`;
         }
         if (src2) {
-            layoutHtml += `<img class="print-card" data-role="card" src="${src2}" style="${cardImgStyle}" alt="Card 2" />`;
+            layoutHtml += `<img class="print-card" data-role="card" src="${src2}" style="${cardImgStyle}" alt="Kart 2" />`;
         }
         layoutHtml += '</div>';
 

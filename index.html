@@ -1,11 +1,11 @@
 <!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
     <title>CardPrint Pro</title>
-    <meta name="description" content="Offline-capable PWA that converts uploaded files into printable ISO/IEC 7810 ID-1 cards.">
+    <meta name="description" content="Yüklenen dosyaları yazdırılabilir ISO/IEC 7810 ID-1 kartlara dönüştüren, çevrimdışı çalışabilen PWA uygulaması.">
     <link rel="stylesheet" href="css/style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#111111">
@@ -24,7 +24,7 @@
             <span class="logo-dot"></span>
             <h1>CardPrint <span class="accent-text">Pro</span></h1>
         </div>
-        <div class="status-badge" id="offlineBadge" hidden>Offline Mode</div>
+        <div class="status-badge" id="offlineBadge" hidden>Çevrimdışı Mod</div>
     </header>
 
     <main class="app-container">
@@ -32,17 +32,17 @@
             <!-- Card Slot 1 -->
             <div class="card-slot" id="slot-1" data-slot="1">
                 <div class="slot-header">
-                    <h2>Card Slot 1</h2>
-                    <button class="clear-btn" id="clear-1" title="Clear Slot" type="button" disabled>✕</button>
+                    <h2>Kart Yuvası 1</h2>
+                    <button class="clear-btn" id="clear-1" title="Yuvayı Temizle" type="button" disabled>✕</button>
                 </div>
                 <div class="drop-zone" id="dropzone-1" role="button" tabindex="0"
-                     aria-label="Upload file for card slot 1. Click to browse, drag and drop, or paste an image.">
+                     aria-label="Kart yuvası 1 için dosya yükleyin. Göz atmak için tıklayın, sürükleyip bırakın veya bir görsel yapıştırın.">
                     <div class="drop-zone-content">
                         <svg class="upload-icon" viewBox="0 0 24 24" width="40" height="40" aria-hidden="true">
                             <path fill="currentColor" d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
                         </svg>
-                        <p class="drop-text">Drag &amp; Drop, Paste or <span class="browse-link">Browse</span></p>
-                        <p class="drop-sub">Supports PDF, JPG, PNG</p>
+                        <p class="drop-text">Sürükle & Bırak, Yapıştır ya da <span class="browse-link">Göz At</span></p>
+                        <p class="drop-sub">PDF, JPG, PNG destekler</p>
                     </div>
                     <div class="spinner-overlay" id="spinner-1" hidden aria-live="polite">
                         <span class="spinner"></span>
@@ -56,17 +56,17 @@
             <!-- Card Slot 2 -->
             <div class="card-slot" id="slot-2" data-slot="2">
                 <div class="slot-header">
-                    <h2>Card Slot 2</h2>
-                    <button class="clear-btn" id="clear-2" title="Clear Slot" type="button" disabled>✕</button>
+                    <h2>Kart Yuvası 2</h2>
+                    <button class="clear-btn" id="clear-2" title="Yuvayı Temizle" type="button" disabled>✕</button>
                 </div>
                 <div class="drop-zone" id="dropzone-2" role="button" tabindex="0"
-                     aria-label="Upload file for card slot 2. Click to browse, drag and drop, or paste an image.">
+                     aria-label="Kart yuvası 2 için dosya yükleyin. Göz atmak için tıklayın, sürükleyip bırakın veya bir görsel yapıştırın.">
                     <div class="drop-zone-content">
                         <svg class="upload-icon" viewBox="0 0 24 24" width="40" height="40" aria-hidden="true">
                             <path fill="currentColor" d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
                         </svg>
-                        <p class="drop-text">Drag &amp; Drop, Paste or <span class="browse-link">Browse</span></p>
-                        <p class="drop-sub">Supports PDF, JPG, PNG</p>
+                        <p class="drop-text">Sürükle & Bırak, Yapıştır ya da <span class="browse-link">Göz At</span></p>
+                        <p class="drop-sub">PDF, JPG, PNG destekler</p>
                     </div>
                     <div class="spinner-overlay" id="spinner-2" hidden aria-live="polite">
                         <span class="spinner"></span>
@@ -79,24 +79,24 @@
         </div>
 
         <div class="control-panel">
-            <button class="print-trigger" id="printActionBtn" type="button" disabled>Prepare Print Layout</button>
+            <button class="print-trigger" id="printActionBtn" type="button" disabled>Baskı Düzenini Hazırla</button>
         </div>
     </main>
 
     <!-- Print Modal Options -->
     <div class="modal-overlay" id="printModal" hidden>
         <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="printModalTitle">
-            <h3 id="printModalTitle">Print Configuration</h3>
+            <h3 id="printModalTitle">Baskı Ayarları</h3>
             <div class="form-group">
-                <label for="paperSizeSelect">Paper Target Size</label>
+                <label for="paperSizeSelect">Kağıt Hedef Boyutu</label>
                 <select id="paperSizeSelect">
-                    <option value="a4">A4 Standard Sheet (cards side by side)</option>
-                    <option value="photo10x15">10 × 15 cm Photo Paper (cards stacked)</option>
+                    <option value="a4">A4 Standart Sayfa (kartlar yan yana)</option>
+                    <option value="photo10x15">10 × 15 cm Fotoğraf Kağıdı (kartlar üst üste)</option>
                 </select>
             </div>
             <div class="modal-actions">
-                <button class="modal-btn secondary" id="modalCancelBtn" type="button">Cancel</button>
-                <button class="modal-btn primary" id="modalConfirmPrintBtn" type="button">Print Now</button>
+                <button class="modal-btn secondary" id="modalCancelBtn" type="button">İptal</button>
+                <button class="modal-btn primary" id="modalConfirmPrintBtn" type="button">Şimdi Yazdır</button>
             </div>
         </div>
     </div>
@@ -105,7 +105,7 @@
     <div class="toast" id="appToast" hidden role="status" aria-live="polite"></div>
 
     <!-- Frame Injection Element Container for Hidden CSS Printing Layouts -->
-    <iframe id="printContainerIframe" title="Print output" style="display:none; visibility:hidden; width:0; height:0; position:absolute; border:0;"></iframe>
+    <iframe id="printContainerIframe" title="Yazdırma çıktısı" style="display:none; visibility:hidden; width:0; height:0; position:absolute; border:0;"></iframe>
 
     <script type="module" src="js/app.js"></script>
 </body>

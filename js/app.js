@@ -52,7 +52,7 @@ function registerServiceWorker() {
                 if (!newWorker) return;
                 newWorker.addEventListener('statechange', () => {
                     if (newWorker.state === 'activated') {
-                        showToast('App updated. Refresh for the latest version.', 'info');
+                        showToast('Uygulama güncellendi. En son sürüm için sayfayı yenileyin.', 'info');
                     }
                 });
             });
@@ -183,13 +183,13 @@ async function handleIncomingFile(file, slotId) {
     clearSlotError(slotId);
 
     if (!file || !isAcceptedFile(file)) {
-        setSlotError(slotId, 'Unsupported file type. Please use a PDF, JPG, or PNG file.');
+        setSlotError(slotId, 'Desteklenmeyen dosya türü. Lütfen bir PDF, JPG veya PNG dosyası kullanın.');
         return;
     }
 
     const MAX_FILE_SIZE = 60 * 1024 * 1024; // 60MB safety ceiling for mobile memory
     if (file.size > MAX_FILE_SIZE) {
-        setSlotError(slotId, 'File is too large. Please use a file under 60MB.');
+        setSlotError(slotId, 'Dosya çok büyük. Lütfen 60MB\'tan küçük bir dosya kullanın.');
         return;
     }
 
@@ -212,7 +212,7 @@ async function handleIncomingFile(file, slotId) {
         clearBtn.disabled = false;
     } catch (err) {
         resetSlotState(slotId, { silent: true });
-        setSlotError(slotId, err && err.message ? err.message : 'Failed to process this file. Please try another one.');
+        setSlotError(slotId, err && err.message ? err.message : 'Bu dosya işlenemedi. Lütfen başka bir dosya deneyin.');
     } finally {
         slotState.isProcessing = false;
         spinner.hidden = true;
@@ -323,7 +323,7 @@ function setupControlPanelListeners() {
             );
             closeModal();
         } catch (err) {
-            showToast(err && err.message ? err.message : 'Printing failed. Please try again.', 'error');
+            showToast(err && err.message ? err.message : 'Yazdırma başarısız oldu. Lütfen tekrar deneyin.', 'error');
         } finally {
             isPrinting = false;
             modalConfirmPrintBtn.disabled = false;

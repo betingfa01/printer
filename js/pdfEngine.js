@@ -12,13 +12,27 @@ const PDF_SCALE_FOR_300_DPI = TARGET_RENDER_DPI / PDF_BASE_DPI; // ≈ 4.1667
 // some WebKit versions, and total memory limits regardless of that cap).
 const MAX_RENDER_CANVAS_AREA = 16_000_000; // ~16 megapixels, safely under iOS limits
 
+// The classic pdf.js build (pdf.min.js, loaded in index.html) auto-detects
+// its own worker script via document.currentScript when
+// GlobalWorkerOptions.workerSrc isn't set explicitly, but that fallback path
+// is deprecated and logs a console warning on every single PDF processed.
+// Configuring it explicitly here points at the exact same CDN file
+// (already precached by sw.js) so behavior is unchanged, just warning-free.
+const PDF_WORKER_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+function ensurePdfWorkerConfigured() {
+    if (typeof pdfjsLib !== 'undefined' && pdfjsLib.GlobalWorkerOptions && !pdfjsLib.GlobalWorkerOptions.workerSrc) {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = PDF_WORKER_SRC;
+    }
+}
+
 export async function processPdfFile(file, canvas, targetWidth, targetHeight) {
     if (!file || file.type !== 'application/pdf') {
-        throw new Error('File is not a PDF document.');
+        throw new Error('Dosya bir PDF belgesi değil.');
     }
     if (typeof pdfjsLib === 'undefined') {
-        throw new Error('PDF engine failed to load. Check your connection and reload the app.');
+        throw new Error('PDF motoru yüklenemedi. Bağlantınızı kontrol edip uygulamayı yeniden yükleyin.');
     }
+    ensurePdfWorkerConfigured();
 
     const arrayBuffer = await file.arrayBuffer();
 
@@ -27,13 +41,13 @@ export async function processPdfFile(file, canvas, targetWidth, targetHeight) {
         const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
         pdf = await loadingTask.promise;
     } catch (err) {
-        throw new Error('Unable to read this PDF. It may be corrupted, encrypted, or password-protected.');
+        throw new Error('Bu PDF okunamadı. Dosya bozuk, şifrelenmiş veya parola korumalı olabilir.');
     }
 
     let renderCanvas;
     try {
         if (pdf.numPages < 1) {
-            throw new Error('This PDF has no pages to render.');
+            throw new Error('Bu PDF\'de görüntülenecek sayfa yok.');
         }
 
         const page = await pdf.getPage(1);
@@ -143,11 +157,12 @@ const PRINT_MAX_RENDER_AREA = 40_000_000; // ~40 megapixels
  */
 export async function renderPdfForPrint(file, targetWidthPx = PRINT_TARGET_WIDTH_PX, targetHeightPx = PRINT_TARGET_HEIGHT_PX) {
     if (!file || (file.type !== 'application/pdf' && !/\.pdf$/i.test(file.name || ''))) {
-        throw new Error('File is not a PDF document.');
+        throw new Error('Dosya bir PDF belgesi değil.');
     }
     if (typeof pdfjsLib === 'undefined') {
-        throw new Error('PDF engine failed to load. Check your connection and reload the app.');
+        throw new Error('PDF motoru yüklenemedi. Bağlantınızı kontrol edip uygulamayı yeniden yükleyin.');
     }
+    ensurePdfWorkerConfigured();
 
     const arrayBuffer = await file.arrayBuffer();
 
@@ -156,13 +171,13 @@ export async function renderPdfForPrint(file, targetWidthPx = PRINT_TARGET_WIDTH
         const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
         pdf = await loadingTask.promise;
     } catch (err) {
-        throw new Error('Unable to read this PDF. It may be corrupted, encrypted, or password-protected.');
+        throw new Error('Bu PDF okunamadı. Dosya bozuk, şifrelenmiş veya parola korumalı olabilir.');
     }
 
     let renderCanvas;
     try {
         if (pdf.numPages < 1) {
-            throw new Error('This PDF has no pages to render.');
+            throw new Error('Bu PDF\'de görüntülenecek sayfa yok.');
         }
 
         const page = await pdf.getPage(1);

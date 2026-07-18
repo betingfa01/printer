@@ -1,7 +1,7 @@
 {
   "short_name": "CardPrintPro",
-  "name": "CardPrint Pro - ID Sizing Engine",
-  "description": "Offline app that converts uploaded PDF, JPG, and PNG files into printable ID cards (84.60mm x 52.98mm, ISO/IEC 7810 ID-1 reduced 1mm per side for print tolerance).",
+  "name": "CardPrint Pro - Kimlik Kartı Boyutlandırma Motoru",
+  "description": "Yüklenen PDF, JPG ve PNG dosyalarını yazdırılabilir kimlik kartlarına (84,60mm x 52,98mm, baskı toleransı için her kenardan 1mm azaltılmış ISO/IEC 7810 ID-1) dönüştüren çevrimdışı uygulama.",
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",
@@ -31,5 +31,5 @@
   "display_override": ["standalone", "minimal-ui"],
   "orientation": "any",
   "categories": ["productivity", "utilities", "photo"],
-  "lang": "en"
+  "lang": "tr"
 }
