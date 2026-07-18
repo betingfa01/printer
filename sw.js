@@ -3,7 +3,7 @@
 // IMPORTANT: bump CACHE_VERSION any time ANY cached asset changes
 // (HTML, CSS, JS, icons). This is the entire cache-busting mechanism —
 // the old cache is deleted in `activate` once a new version installs.
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const CACHE_NAME = `cardprint-pro-${CACHE_VERSION}`;
 
 // Precached at install time. Paths are relative to this file's location,
